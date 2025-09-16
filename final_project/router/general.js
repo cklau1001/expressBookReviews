@@ -122,5 +122,42 @@ public_users.get('/async', async (req, res) => {
     }    
 }); 
 
+// Task 11 - get books by ISBN
+public_users.get('/async/isbn/:isbn', async (req, res) => {
+    try {
+        let isbn = req.params.isbn;
+        const response = await axios.get(`http://localhost:5000/isbn/${isbn}`);
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error fetching external data:', error);
+        res.status(500).json({ error: 'Failed to fetch data' });
+    }    
+});
+
+// Task 12 - get book details by author
+public_users.get('/async/author/:author', async (req, res) => {
+    try {
+        let author = req.params.author;
+        const response = await axios.get(`http://localhost:5000/author/${author}`);
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error fetching external data:', error);
+        res.status(500).json({ error: 'Failed to fetch data' });
+    }    
+
+});
+
+// Task 13 - get book details by title
+public_users.get('/async/title/:title', async (req, res) => {
+    try {
+        let title = req.params.title;
+        const response = await axios.get(`http://localhost:5000/title/${title}`);
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error fetching external data:', error);
+        res.status(500).json({ error: 'Failed to fetch data' });
+    }    
+
+});
 
 module.exports.general = public_users;
