@@ -72,7 +72,6 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     let reviewContent = req.body.review;
     let username = req.session.authorization['username'];
 
-    console.log("isbn=" + isbn + ", user=" + username);
     let book = books[isbn];
   
     if (book && reviewContent) {
@@ -87,9 +86,28 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
     }
   
 
+});
 
-    res.send({message: 'a test'}, null, 4);
+// Delete a book review by isbn and username
+regd_users.delete("/auth/review/:isbn", (req, res) => {
 
+    let isbn = req.params.isbn;    
+    let username = req.session.authorization['username'];
+    let book = books[isbn];
+    
+    if (book && username in book.reviews) {
+        
+        console.log("in delete block");
+
+        let reviews = book.reviews;
+        delete reviews[username];
+
+        // flatten book structure by destruture ...
+          res.send(JSON.stringify({isbn, ...book}, null, 4));
+
+    } else {
+        return res.status(200).json({message: 'All comments have been deleted for book [' + isbn + "] created by [" + username + "]"});
+     }
 
 });
 
