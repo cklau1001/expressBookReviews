@@ -79,7 +79,8 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
       reviews[username] = reviewContent;
 
       // flatten book structure by destruture ...
-        res.send(JSON.stringify({isbn, ...book}, null, 4));
+        // res.send(JSON.stringify({isbn, ...book}, null, 4));
+        res.json({isbn, ...book});
 
     } else {
        return res.status(404).json({message: 'Unable to find book with ISBN=' + isbn});
@@ -103,7 +104,8 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
         delete reviews[username];
 
         // flatten book structure by destruture ...
-          res.send(JSON.stringify({isbn, ...book}, null, 4));
+          // res.send(JSON.stringify({isbn, ...book}, null, 4));
+          res.json({isbn, ...book});
 
     } else {
         return res.status(200).json({message: 'All comments have been deleted for book [' + isbn + "] created by [" + username + "]"});
