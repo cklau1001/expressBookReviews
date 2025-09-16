@@ -1,4 +1,5 @@
 const express = require('express');
+const axios = require('axios');
 let books = require("./booksdb.js");
 let isValid = require("./auth_users.js").isValid;
 let users = require("./auth_users.js").users;
@@ -108,5 +109,18 @@ public_users.get('/review/:isbn',function (req, res) {
   
 
 });
+
+// Using axios
+// Task 10 - get all books
+public_users.get('/async', async (req, res) => {
+    try {
+        const response = await axios.get('http://localhost:5000/');
+        res.json(response.data);
+    } catch (error) {
+        console.error('Error fetching external data:', error);
+        res.status(500).json({ error: 'Failed to fetch data' });
+    }    
+}); 
+
 
 module.exports.general = public_users;
