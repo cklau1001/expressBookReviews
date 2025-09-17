@@ -23,15 +23,14 @@ public_users.post("/register", (req,res) => {
       }
   }
   // Return error if username or password is missing
-  return res.status(404).json({message: "Unable to register user."});
+  return res.status(401).json({message: "Unable to register user. Please provide a valid payload"});
 
 
 });
 
 // Get the book list available in the shop
 public_users.get('/',function (req, res) {
-  //Write your code here
-  // res.send(JSON.stringify(books, null, 4));
+  //Write your code here  
   res.json(books);
 
 });
@@ -42,8 +41,7 @@ public_users.get('/isbn/:isbn',function (req, res) {
   let isbn = req.params.isbn;
   let book = books[isbn];
 
-  if (book) {
-    //res.send(JSON.stringify(book, null, 4));
+  if (book) {    
     res.json(book);
   } else {
     return res.status(404).json({message: 'Unable to find book with ISBN=' + isbn});
@@ -65,8 +63,7 @@ public_users.get('/author/:author',function (req, res) {
     }
   }
   
-  if (Object.keys(target_books).length > 0) {
-    //res.send(JSON.stringify(target_books, null, 4));
+  if (Object.keys(target_books).length > 0) {    
     res.json(target_books);
   } else {
     return res.status(404).json({message: 'Unable to find book written by ' + author});
@@ -88,8 +85,7 @@ public_users.get('/title/:title',function (req, res) {
     }
   }
   
-  if (Object.keys(target_books).length > 0) {
-    // res.send(JSON.stringify(target_books, null, 4));
+  if (Object.keys(target_books).length > 0) {    
     res.json(target_books);
   } else {
     return res.status(404).json({message: 'Unable to find book with title: ' + title});

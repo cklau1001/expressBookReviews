@@ -78,8 +78,7 @@ regd_users.put("/auth/review/:isbn", (req, res) => {
       let reviews = book.reviews;
       reviews[username] = reviewContent;
 
-      // flatten book structure by destruture ...
-        // res.send(JSON.stringify({isbn, ...book}, null, 4));
+      // flatten book structure by destruture ...        
         res.json({isbn, ...book});
 
     } else {
@@ -98,13 +97,10 @@ regd_users.delete("/auth/review/:isbn", (req, res) => {
     
     if (book && username in book.reviews) {
         
-        console.log("in delete block");
-
         let reviews = book.reviews;
         delete reviews[username];
 
-        // flatten book structure by destruture ...
-          // res.send(JSON.stringify({isbn, ...book}, null, 4));
+        // flatten book structure by destruture ...          
           res.json({isbn, ...book});
 
     } else {
